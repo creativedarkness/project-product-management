@@ -1,0 +1,15 @@
+/* * {
+  outline: 1px dotted red;
+} */
+.App{
+  padding: 15px;
+}
+/* .navbar {
+  background-color: slategray;
+} */
+
+.navItem {
+  list-style-type: none;
+  display: inline-block;
+  padding: 15px;
+}

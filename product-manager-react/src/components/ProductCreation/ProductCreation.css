@@ -1,0 +1,44 @@
+.productCreation {
+    height: 250px;
+    width: 575px;
+    padding: 10px;
+    background-color: lightgray;
+}
+.inputLabel {
+    font-size: 20px;
+    padding-right: 75px;
+    display: inline-block;
+}
+input {
+    border: 1px solid black;
+    text-align: right;
+    float: right;
+    display: inline-block;
+}
+.createForm {
+    width: 350px;
+}
+.createButton {
+    border: 3px solid black;
+    background-color: green;
+    color: white;
+    margin-top: 10px;
+    float: right;
+}
+.deleteButton {
+
+    width: 75px;
+    border: 3px solid black;
+    background-color: red;
+    color: white;
+    margin-top: 10px;
+    float: right;
+}
+
+.updateButton {
+    border: 3px solid black;
+    background-color: blue;
+    color: white;
+    margin-top: 10px;
+    float: right;
+}
