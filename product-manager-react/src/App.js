@@ -41,6 +41,7 @@ class App extends Component {
         }
       ]
     })
+    console.log("added product")
   }
 
   // when a user clicks on the update button in ProductEdit, update state
@@ -48,16 +49,16 @@ class App extends Component {
   updateProduct = (product) => {
     for (let i = 0; i < this.state.products.length; i++) {
       if (this.state.products[i].id === product.prodId) {
-        // console.log("found and updated")
-        let updatedState = Object.assign({}, this.state)
-        updatedState.products[i].title = product.title;
-        updatedState.products[i].price = product.price;
-        updatedState.products[i].image = product.image;
 
-        this.setState({
-          ...this.state.products,
-          updatedState,
-        })
+        let updatedState = Object.assign({}, this.state.products)
+
+        updatedState[i].title = product.title;
+        updatedState[i].price = product.price;
+        updatedState[i].image = product.image;
+
+        this.setState( updatedState)
+
+        console.log("found procduct and updated:", updatedState[i])
       }
     }
   }
@@ -71,10 +72,13 @@ class App extends Component {
 
     for (let i = 0; i < this.state.products.length; i++) {
       if (this.state.products[i].id == id) {
+
         console.log("newState", newState[i].title);
         this.state.products.splice(i, 1);
+
         this.setState(newState)
-        console.log("found procduct and deleted prodcut #", newState[i])
+        
+        console.log("found procduct and deleted:", newState[i])
       }
     }
   }
