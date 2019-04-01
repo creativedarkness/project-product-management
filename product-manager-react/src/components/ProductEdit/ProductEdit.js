@@ -6,16 +6,18 @@ class ProductCreation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            prodId: null,
             title: null,
             price: null,
             image: null,
         }
     }
     componentDidMount = () => {
-        // console.log("params",this.props.match.params.id);
+        // console.log("params",this.props.match.params);
         // console.log("title",this.props.products[this.props.match.params.id-1].title);
 
         this.setState({
+            prodId: this.props.products[this.props.match.params.id-1].id,
             title: this.props.products[this.props.match.params.id-1].title,
             price: this.props.products[this.props.match.params.id-1].price,
             image: this.props.products[this.props.match.params.id-1].image,
@@ -29,23 +31,34 @@ class ProductCreation extends Component {
             [event.target.name]: event.target.value
         })
     }
+    //send the updated input to the updatedProduct function
     handleUpdate = (event) => {
         console.log("input submitted");
         event.preventDefault();
-        this.props.editProduct(this.state)
-        // this.props.history.push("/products")
+        this.props.updateProduct(this.state)
+        this.props.history.push("/products")
+    }
+
+    handleDelete = (event) => {
+        console.log("Product deleted");
+        event.preventDefault();
+        this.props.deleteProductRecord(this.state, this.state.prodId)
+        this.props.history.push("/products")
+
     }
 
 
     render() {
-        console.log("current state:", this.state);
-        console.log("Eidt props", this.props);
+        // console.log("edit current state:", this.state);
+        // console.log("eidt props", this.props);
 
 
         // set variables to arrow functiont to create HTML components
         return (
             <div className="productEdit">
                 <h1>Edit Product</h1>
+                {/* autofill the form with the iformation matching the ID from the edit button that was clicked  
+                or leave blank */}
                 {this.state.title ?
                 <form className="editForm">
                     <label className="inputLabel">Title</label>

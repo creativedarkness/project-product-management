@@ -27,7 +27,7 @@ class App extends Component {
       ],
     }
   }
-
+  // when a user click on update in ProductCreation, update state.
   addNewProduct = (product) => {
     // console.log("addNewProduct passing:",product);
     this.setState({
@@ -43,34 +43,45 @@ class App extends Component {
     })
   }
 
-  editProduct = (product, id) => {
-    this.setState({
-      products: [
-        ...this.state.products,
-        {
-          id: { id },
-          title: product.title,
-          price: product.price,
-          image: product.image
-        }
-      ]
-    })
+  // when a user clicks on the update button in ProductEdit, update state
+
+  updateProduct = (product) => {
+    for (let i = 0; i < this.state.products.length; i++) {
+      if (this.state.products[i].id === product.prodId) {
+        // console.log("found and updated")
+        let updatedState = Object.assign({}, this.state)
+        updatedState.products[i].title = product.title;
+        updatedState.products[i].price = product.price;
+        updatedState.products[i].image = product.image;
+
+        this.setState({
+          ...this.state.products,
+          updatedState,
+        })
+      }
+    }
   }
 
-  // deleteProductRecord = (id) => {
-  //   console.log("id passed in:", id)
-  //   for(let i=0; i<this.state.products.length; i++){
-  //     if(this.state.products[i].id === id){
-  //       console.log("this.state.products[i].id is:",this.state.products[i].id)
-  //       // this.state.products.splice(i, 1);
-  //       break;
-  //     }
-  //   }
-  // }
+  //Remove Prodcut recrod from the list when either the delete button is click in ProductList or ProductEdit componenets
+  deleteProductRecord = (product, id) => {
+    // console.log("ID passed into deleteProductRecord:", id);
+    // console.log("product passed into deleteProductRecord:", product);
+
+    let newState = Object.assign({}, this.state.products);
+
+    for (let i = 0; i < this.state.products.length; i++) {
+      if (this.state.products[i].id == id) {
+        console.log("newState", newState[i].title);
+        this.state.products.splice(i, 1);
+        this.setState(newState)
+        console.log("found procduct and deleted prodcut #", newState[i])
+      }
+    }
+  }
 
   render() {
 
-    // console.log("current state", this.state);
+    console.log("current state", this.state);
     return (
       <div className="App">
         <h1>PPM - Project Product Mangement</h1>
@@ -85,14 +96,18 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={ProductHome} />
+            {/* when a user clicks on edit in the product list, route to the ProdcutEdit component*/}
             <Route path="/products/edit/:id" render={
               (props) => {
                 return (<ProductEdit
                   {...props}
                   products={this.state.products}
-                  editProduct={this.state.editProduct} />)
+                  updateProduct={this.updateProduct} 
+                  deleteProductRecord={this.deleteProductRecord}
+                  />)
               }
             } />
+            {/* route /products to the ProductCreation component */}
             <Route path="/products/new" render={
               (props) => {
                 return (<ProductCreation
@@ -100,12 +115,13 @@ class App extends Component {
                   addNewProduct={this.addNewProduct} />)
               }
             } />
+            {/* route /products to the ProductList component */}
             <Route path="/products" render={
               (props) => {
                 return (<ProductList
                   {...props}
                   products={this.state.products}
-                  deleteProductRecord={this.state.deleteProductRecord} />)
+                  deleteProductRecord={this.deleteProductRecord} />)
               }
             }
             />

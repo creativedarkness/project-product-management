@@ -18,6 +18,7 @@ class ProductCreation extends Component {
             [event.target.name]: event.target.value
         })
     }
+    //send the data to be added to the server
     handleSubmit = (event) => {
         console.log("input submitted");
         event.preventDefault();

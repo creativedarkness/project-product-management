@@ -7,26 +7,28 @@ class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productId: null,
+            prodId: null,
+            title: null,
+            price: null,
+            image: null,
         }
     }
+
     // place functions here to manipulate the state
     ///when Edit button click, redirect ProductEdit page for product that was click
-    handleEditClick = (event) => {
+    handleEditClicked = (event) => {
         // console.log("name",event.target.name)
         this.props.history.push(`/products/edit/${event.target.name}`)
     }
 
     handleDelete = (event) => {
-        console.log("name:",event.target.name)
-        console.log("props", this.props);
-        // this.props.deleteProductRecord(event.target.name)
+        this.props.deleteProductRecord(this.props, event.target.name)
         // this.props.history.push(`/products`)
     }
 
 
     render() {
-        // console.log(this.props);
+        // console.log("list props", this.props);
         const showProducts = this.props.products.map((product, idx) => {
             return (
                 <div className="productListing" key={idx}>
@@ -34,7 +36,7 @@ class ProductList extends Component {
                     <h3>{product.title}</h3>
                     <h3>${product.price}</h3>
                     <div className="listbuttons">
-                        <button className="editButton" name={product.id} onClick={this.handleEditClick}>EDIT</button>
+                        <button className="editButton" name={product.id} onClick={this.handleEditClicked}>EDIT</button>
                         <br />
                         <button className="listDeleteButton" name={product.id} onClick={this.handleDelete}>DELETE</button>
                     </div>
