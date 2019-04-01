@@ -4,15 +4,6 @@ import React, { Component } from 'react';
 import './ProductList.css';
 
 class ProductList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            prodId: null,
-            title: null,
-            price: null,
-            image: null,
-        }
-    }
 
     // place functions here to manipulate the state
     ///when Edit button click, redirect ProductEdit page for product that was click
